@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+
+{% for categorie in categories %}
+
+<div class='col-md-4'>
+
+    <h2><a class="catTitle" href="{{ path('articles', { 'id': categorie.id }) }}">{{ categorie.title }}</a></h2>
+
+    <p></p>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}
