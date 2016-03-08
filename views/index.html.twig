@@ -5,17 +5,21 @@
 
 
 {% block content %}
-
+<h1 class="categories-title">Catégories :</h1>
 {% for categorie in categories %}
-
-<div class='col-md-4'>
-
-    <h2><a class="catTitle" href="{{ path('articles', { 'id': categorie.id }) }}">{{ categorie.title }}</a></h2>
-
-    <p></p>
-
-</div>
-
+<a class="catTitle" href="{{ path('articles', { 'id': categorie.id }) }}">
+	<div class ='row categorie'>
+		<div class='col-md-2'>
+		    <img src="/img/{{ categorie.getImage() }}" class="img-rounded">
+		</div>
+		<div class='col-md-10'>
+			<h2>{{ categorie.title }}</h2>
+		</div>
+	</div>
+</a>
 {% endfor %}
+<div class ='row'>
+<h3>Vous cherchez un article en particulier? faîtes une recherche ! </h3>
+</div>
 
 {% endblock %}
