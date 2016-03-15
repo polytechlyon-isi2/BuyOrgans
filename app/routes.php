@@ -10,10 +10,11 @@ $app->get('/', function () use ($app) {
 
 
 // Article details with comments
-$app->get('/articles', function () use ($app) {
-    $articles = $app['dao.article']->findAll();
-    return $app['twig']->render('index.html.twig', array('articles' => $articles));
-})->bind('articles');
+$app->get('/categorie/{id}', function ($id) use ($app) {
+    $categorie = $app['dao.categorie']->find($id);
+    $articles = $app['dao.article']->findByCategorie($id);
+    return $app['twig']->render('categorie.html.twig', array('categorie' => $categorie, 'articles' => $articles));
+})->bind('categorie');
 
 // Login form
 $app->get('/login', function(Request $request) use ($app) {

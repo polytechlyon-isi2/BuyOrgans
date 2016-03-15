@@ -7,7 +7,7 @@
 {% block content %}
 <h1 class="categories-title">Catégories :</h1>
 {% for categorie in categories %}
-<a class="catTitle" href="{{ path('articles', { 'id': categorie.id }) }}">
+<a class="catTitle" href="{{ path('categorie', { 'id': categorie.id }) }}">
 	<div class ='row categorie'>
 		<div class='col-md-2'>
 		    <img src="/img/{{ categorie.getImage() }}" class="img-rounded">
