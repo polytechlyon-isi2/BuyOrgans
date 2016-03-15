@@ -4,34 +4,69 @@
 
 {% block content %}
 <h2 class="text-center">{{ block('title') }}</h2>
-{% if error %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">
+    {{ flashMessage }}
+</div>
+{% endfor %}
+{% if form_errors(userForm.password.first) %}
 <div class="alert alert-danger">
-    <strong>Signup failed!</strong> {{ error }}
+    {{ form_errors(userForm.password.first) }}
 </div>
 {% endif %}
+
 <div class="well">
-    <form data-toggle="validator" id="signupForm" class="form-signin form-horizontal" role="form" action="{{ path('signup') }}" method="post">
-        <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-            <input type="email" name="_username" value="{{ last_username }}" class="form-control" placeholder="Enter your e-mail" required autofocus>
-            </div>
+{{ form_start(userForm, { 'attr': {'class': 'form-horizontal', 'data-toggle' : 'validator'} }) }}
+    <div class="form-group">
+        {{ form_label(userForm.username, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(userForm.username) }}
+            {{ form_widget(userForm.username, { 'attr':  {
+                'class': 'form-control',
+                'pattern' : '.+\@.+\..+'
+            }}) }}
         </div>
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                <input type="password" data-minlength="6" class="form-control" id="_password" placeholder="Password" required>
-                    <div class="help-block">Minimum of 6 characters</div>
-            </div>
-         <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#_password" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
-                <div class="help-block with-errors"></div>
-            </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(userForm.password.first, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_widget(userForm.password.first, { 'attr':  {
+                'class': 'form-control',
+            }}) }}
         </div>
-        <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span>  Sign up !</button>
-            </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(userForm.password.second, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label',
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_widget(userForm.password.second, { 'attr':  {
+                'class': 'form-control',
+                'data-match' : '#user_password_first'
+            }}) }}
         </div>
-    </form>
+    </div>
+    <div class="form-group">
+        {{ form_label(userForm.role, null, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-2">
+            {{ form_errors(userForm.role) }}
+            {{ form_widget(userForm.role, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-3">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+    </div>
+{{ form_end(userForm) }}
 <script src="{{ app.request.basepath }}/lib/js/validator.js"></script>
 </div>
 {% endblock %}
