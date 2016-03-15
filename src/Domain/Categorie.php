@@ -63,7 +63,7 @@ class Categorie
     }
 
 
-    public function getImage() {
+    public function getImage(){
 
         return $this->image;
 
