@@ -1,4 +1,6 @@
 <?php
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 // Home page
 $app->get('/', function () use ($app) {
@@ -20,3 +22,11 @@ $app->get('/login', function(Request $request) use ($app) {
         'last_username' => $app['session']->get('_security.last_username'),
     ));
 })->bind('login');
+
+// Signup form
+$app->get('/signup', function(Request $request) use ($app) {
+    return $app['twig']->render('signup.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
+})->bind('signup');

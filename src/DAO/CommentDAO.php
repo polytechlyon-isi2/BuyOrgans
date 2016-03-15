@@ -1,6 +1,6 @@
 <?php
 
-namespace MicroCMS\DAO;
+namespace BuyOrgans\DAO;
 
 use BuyOrgans\Domain\Comment;
 
