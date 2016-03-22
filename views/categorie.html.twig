@@ -7,14 +7,18 @@
     <br/>
     <div class ='row article'>
     {% for article in articles %}
-        <a href="{{ path('article', { 'id': article.id }) }}">
-        <div class='col-md-3'>
-            <img src="/img/{{ article.getImage() }}" class="img-rounded">
-            <br/><br/>
-            <p class='price'>{{ article.price }} €</p>
-            <p class='name'>{{ article.title }}</p>
+        <div class='col-md-3 col-sm-6 col-xs-12'>
+            <div class="box">
+            <a href="{{ path('article', { 'id': article.id }) }}">
+                <p class="image"><img src="/img/{{ article.getImage() }}" class="img-rounded img-responsive"></p>
+                <p>
+                    <span class="badge price">{{ article.price }} €</span>
+                    <br/>
+                    <span class="title">{{ article.title }}</span>
+                </p>
+            </a>
+            </div>
         </div>
-        </a>
     {% endfor %}
     </div>
 {% endblock %}
