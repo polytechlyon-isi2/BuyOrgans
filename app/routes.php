@@ -41,14 +41,14 @@ $app->get('/signup', function(Request $request) use ($app) {
         // compute the encoded password
         $password = $encoder->encodePassword($plainPassword, $user->getSalt());
         $user->setPassword($password); 
+        $user->setRole("ROLE_USER");
         $app['dao.user']->save($user);
         $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
     }
     return $app['twig']->render('signup.html.twig', array(
         'title' => 'New user',
         'userForm' => $userForm->createView()));
-})->bind('signup');
-
+})->bind('signup')->method('POST|GET');
 //Article details and coments
 $app->get('/article/{id}', function ($id) use ($app) {
     $article = $app['dao.article']->find($id);

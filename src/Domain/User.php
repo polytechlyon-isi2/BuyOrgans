@@ -21,6 +21,13 @@ class User implements UserInterface
     private $username;
 
     /**
+     * User DisplayedName
+     *
+     * @var string
+     */
+    private $userdisplayedname;
+
+    /**
      * User password.
      *
      * @var string
@@ -60,6 +67,16 @@ class User implements UserInterface
     public function setUsername($username) {
         $this->username = $username;
     }
+
+
+    public function getUserdisplayedname() {
+        return $this->userdisplayedname;
+    }
+
+    public function setUserdisplayedname($userdisplayedname) {
+        $this->userdisplayedname = $userdisplayedname;
+    }
+
 
     /**
      * @inheritDoc

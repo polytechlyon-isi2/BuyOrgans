@@ -6,6 +6,7 @@ drop table if exists t_categorie;
 create table t_user (
     usr_id integer not null primary key auto_increment,
     usr_name varchar(50) not null,
+    usr_displayed_name varchar(50) not null,
     usr_password varchar(88) not null,
     usr_salt varchar(23) not null,
     usr_role varchar(50) not null 

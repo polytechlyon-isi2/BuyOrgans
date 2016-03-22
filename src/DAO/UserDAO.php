@@ -61,6 +61,7 @@ class UserDAO extends DAO implements UserProviderInterface
      public function save(User $user) {
         $userData = array(
             'usr_name' => $user->getUsername(),
+            'usr_displayed_name' => $user->getUserDisplayedName(),
             'usr_salt' => $user->getSalt(),
             'usr_password' => $user->getPassword(),
             'usr_role' => $user->getRole()
@@ -83,7 +84,7 @@ class UserDAO extends DAO implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return 'MicroCMS\Domain\User' === $class;
+        return $class === 'BuyOrgans\Domain\User';
     }
 
     /**
@@ -96,6 +97,7 @@ class UserDAO extends DAO implements UserProviderInterface
         $user = new User();
         $user->setId($row['usr_id']);
         $user->setUsername($row['usr_name']);
+        $user->setUserDisplayedName($row['usr_displayed_name']);
         $user->setPassword($row['usr_password']);
         $user->setSalt($row['usr_salt']);
         $user->setRole($row['usr_role']);

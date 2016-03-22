@@ -30,6 +30,17 @@
         </div>
     </div>
     <div class="form-group">
+        {{ form_label(userForm.userdisplayedname, NULL, { 'label_attr':  {
+            'class': 'col-sm-5 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(userForm.userdisplayedname) }}
+            {{ form_widget(userForm.userdisplayedname, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
         {{ form_label(userForm.password.first, null, { 'label_attr':  {
             'class': 'col-sm-5 control-label'
         }}) }}
@@ -47,17 +58,6 @@
             {{ form_widget(userForm.password.second, { 'attr':  {
                 'class': 'form-control',
                 'data-match' : '#user_password_first'
-            }}) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.role, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label'
-        }}) }}
-        <div class="col-sm-2">
-            {{ form_errors(userForm.role) }}
-            {{ form_widget(userForm.role, { 'attr':  {
-                'class': 'form-control'
             }}) }}
         </div>
     </div>
