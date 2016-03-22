@@ -42,3 +42,16 @@ a .categorie{
 .categories-title{
 	color: #555;
 }
+
+.article{
+    margin: 10px;
+}
+
+.article img{
+	height:200px;
+	width:200x;
+}
+
+.article .price{
+    font-weight: bold;
+}

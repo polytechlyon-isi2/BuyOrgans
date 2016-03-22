@@ -11,7 +11,7 @@ $app->get('/', function () use ($app) {
 })->bind('home');
 
 
-// Article details with comments
+// Articles list in a categorie
 $app->get('/categorie/{id}', function ($id) use ($app) {
     $categorie = $app['dao.categorie']->find($id);
     $articles = $app['dao.article']->findByCategorie($id);
@@ -48,3 +48,20 @@ $app->get('/signup', function(Request $request) use ($app) {
         'title' => 'New user',
         'userForm' => $userForm->createView()));
 })->bind('signup');
+
+//Article details and coments
+$app->get('/article/{id}', function ($id) use ($app) {
+    $article = $app['dao.article']->find($id);
+    return $app['twig']->render('article.html.twig', array('article' => $article));
+})->bind('article');
+
+
+/*
+$app->error(function (\Exception $e, $code) {
+    return new Response('We are sorry, but something went terribly wrong.'.$code);
+});
+
+$app->get('/error', function () use ($app) {
+    return $app['twig']->render('error.html.twig');
+})->bind('error');
+*/

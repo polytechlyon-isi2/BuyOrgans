@@ -4,7 +4,17 @@
 
 {% block content %}
     <h1 class="categories-title">{{ categorie.title }}</h1>
+    <br/>
+    <div class ='row article'>
     {% for article in articles %}
-        <p>{{ article.title }}</p>
+        <a href="{{ path('article', { 'id': article.id }) }}">
+        <div class='col-md-3'>
+            <img src="/img/{{ article.getImage() }}" class="img-rounded">
+            <br/><br/>
+            <p class='price'>{{ article.price }} €</p>
+            <p class='name'>{{ article.title }}</p>
+        </div>
+        </a>
     {% endfor %}
+    </div>
 {% endblock %}
