@@ -1,24 +1,18 @@
 body { 
-
     padding-top: 50px; 
-
 }
 
 
 .footer {
-
     border-top: 1px solid #ccc;
-
     padding-top: 10px;
-
     text-align: center;
-
 }
 
 .categorie{
 	border-bottom: 1px solid #ddd;
 	padding-top: 10px;
-	height:200px;
+	min-height:200px;
 }
 
 a .categorie{
@@ -31,8 +25,8 @@ a .categorie{
  	background:#EFEFEF;
  }
 .categorie img{
-	height:150px;
-	width:150px;
+	min-height: 150px;
+    min-width: 150px;
 }
 .col-centered{
     float: none;
@@ -47,11 +41,22 @@ a .categorie{
     margin: 10px;
 }
 
-.article img{
-	height:200px;
-	width:200x;
+.article a{
+    text-decoration: none;
+    color:#555;
 }
 
 .article .price{
     font-weight: bold;
 }
+
+.article .box{
+    border: 1px solid silver;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.article .box:hover{
+	border: 1px solid rgb(86, 180, 239);
+ 	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+ 	background:#EFEFEF;
+    font-size: 1.05em;
