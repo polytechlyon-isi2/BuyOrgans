@@ -19,7 +19,13 @@ class UserType extends AbstractType
                 'options'         => array('required' => true),
                 'first_options'   => array('label' => 'Password'),
                 'second_options'  => array('label' => 'Repeat password'),
-            ));
+            ))
+            ->add('city', 'text', array(
+                'label' => 'City','required' => false))
+            ->add('address', 'text', array(
+                'label' => 'Address','required' => false))
+            ->add('postalcode', 'text', array(
+                'label' => 'Postal code','required' => false));
     }
 
     public function getName()
