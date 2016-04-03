@@ -3,13 +3,13 @@ insert into t_categorie values
 (1, 'Orgue à tuyeaux','orgueatuyeaux.jpg');
 
 insert into t_categorie values
-(2, 'Orgue Numérique','orguenumerique.jpg');
+(2, 'Orgue Numérique','orguenumerique.png');
 
 insert into t_categorie values
 (3, 'Orgue Electronique','orgueelectronique.jpg');
 
 insert into t_categorie values
-(4, 'Harmonium','harmonium.jpg');
+(4, 'Harmonium','harmonium.png');
 
 insert into t_categorie values
 (5, 'Orgue de Barbarie','orguebarbarie.png');

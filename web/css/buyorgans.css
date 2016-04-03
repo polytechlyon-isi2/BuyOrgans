@@ -41,6 +41,10 @@ a .categorie{
     margin: 10px;
 }
 
+.article img{
+    visibility: hidden;
+}
+
 .article a{
     text-decoration: none;
     color:#555;

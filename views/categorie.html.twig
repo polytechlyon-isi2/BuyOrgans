@@ -8,16 +8,25 @@
     <div class ='row article'>
     {% for article in articles %}
         <div class='col-md-3 col-sm-6 col-xs-12'>
-            <div class="box">
             <a href="{{ path('article', { 'id': article.id }) }}">
-                <p class="image"><img src="/img/{{ article.getImage() }}" class="img-rounded img-responsive"></p>
-                <p>
-                    <span class="badge price">{{ article.price }} €</span>
-                    <br/>
-                    <span class="title">{{ article.title }}</span>
-                </p>
+                <div class='box'>
+                    <div class="image" style="background: url('/img/{{ article.getImage() }}') center;
+                                              width: 100%;
+                                              background-color: #EFEFEF;
+                                              background-repeat: no-repeat;
+                                              background-size: contain;
+                                              border-radius: 4px;">
+                        <img src="/img/default_image.png" class=" img-responsive">
+                    </div>
+                    <div class="desc">
+                        <p>
+                            <span class="badge price">{{ article.price }} €</span>
+                            <br/>
+                            <span class="title">{{ article.title }}</span>
+                        </p>
+                    </div>
+                </div>
             </a>
-            </div>
         </div>
     {% endfor %}
     </div>
