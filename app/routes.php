@@ -55,6 +55,11 @@ $app->get('/article/{id}', function ($id) use ($app) {
     return $app['twig']->render('article.html.twig', array('article' => $article));
 })->bind('article');
 
+$app->get('/article/{id}', function ($id) use ($app) {
+    $article = $app['dao.article']->find($id);
+    return $app['twig']->render('article.html.twig', array('article' => $article));
+})->bind('article');
+
 
 /*
 $app->error(function (\Exception $e, $code) {
