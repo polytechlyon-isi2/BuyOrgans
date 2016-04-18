@@ -4,21 +4,25 @@
 
 {% block content %}
 <p>
-    <h2>{{ article.title }}</h2>
-    <p>{{ article.content }}</p>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6 article-img">
+                <img src="/img/{{ article.getImage() }}" class="img-rounded img-responsive">
+            </div>
+             <div class="col-md-6">
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.description }}</p>
 
-    <h3>Comments</h3>
-    {% for comment in comments %}
-        <strong>{{ comment.author.username }}</strong> said : {{ comment.content }}<br>
-    {% else %}
-        No comments yet.
-    {% endfor %}
-
-    <h3>Add a comment</h3>
-    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-        Soon!
-    {% else %}
-        <a href="{{ path('login') }} ">Log in</a> to add comments.
-    {% endif %}
+                <h3>Comments</h3>
+                
+                <h3>Add a comment</h3>
+                {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                    Soon!
+                {% else %}
+                    <a href="{{ path('login') }} ">Log in</a> to add comments.
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </p>
 {% endblock %}
