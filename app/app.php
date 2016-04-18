@@ -31,8 +31,13 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'users' => $app->share(function () use ($app) {
                 return new BuyOrgans\DAO\UserDAO($app['db']);
             }),
-        ),
+        )),
+    'security.role_hierarchy' => array(
+        'ROLE_ADMIN' => array('ROLE_USER'),
     ),
+    'security.access_rules' => array(
+        array('^/admin', 'ROLE_ADMIN'),
+    )
 ));
 
 // Register services

@@ -9,7 +9,10 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text')
+            ->add('username', 'text', array(
+                'label' => 'Mail'))
+            ->add('userdisplayedname', 'text', array(
+                'label' => 'Displayed username'))
             ->add('password', 'repeated', array(
                 'type'            => 'password',
                 'invalid_message' => 'The password fields must match.',
@@ -17,9 +20,12 @@ class UserType extends AbstractType
                 'first_options'   => array('label' => 'Password'),
                 'second_options'  => array('label' => 'Repeat password'),
             ))
-            ->add('role', 'choice', array(
-                'choices' => array('ROLE_ADMIN' => 'Admin', 'ROLE_USER' => 'User')
-            ));
+            ->add('city', 'text', array(
+                'label' => 'City','required' => false))
+            ->add('address', 'text', array(
+                'label' => 'Address','required' => false))
+            ->add('postalcode', 'text', array(
+                'label' => 'Postal code','required' => false));
     }
 
     public function getName()

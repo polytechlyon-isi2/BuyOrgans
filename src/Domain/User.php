@@ -21,6 +21,13 @@ class User implements UserInterface
     private $username;
 
     /**
+     * User DisplayedName
+     *
+     * @var string
+     */
+    private $userdisplayedname;
+
+    /**
      * User password.
      *
      * @var string
@@ -42,6 +49,32 @@ class User implements UserInterface
      */
     private $role;
 
+    /**
+     * City
+     * the city the user lives in.
+     *
+     * @var string
+     */
+    private $city;
+
+    /**
+     * Address
+     * the address of the user
+     *
+     * @var string
+     */
+    private $address;
+
+    /**
+     * postalcode
+     * the postal code of the user's city.
+     *
+     * @var string
+     */
+    private $postalcode;
+
+
+
     public function getId() {
         return $this->id;
     }
@@ -49,6 +82,32 @@ class User implements UserInterface
     public function setId($id) {
         $this->id = $id;
     }
+
+    public function getCity() {
+        return $this->city;
+    }
+
+    public function setCity($city) {
+        $this->city = $city;
+    }
+
+    public function getAddress() {
+        return $this->address;
+    }
+
+    public function setAddress($address) {
+        $this->address = $address;
+    }
+
+    public function getPostalcode() {
+        return $this->address;
+    }
+
+    public function setPostalcode($postalcode) {
+        $this->postalcode = $postalcode;
+    }
+
+
 
     /**
      * @inheritDoc
@@ -60,6 +119,16 @@ class User implements UserInterface
     public function setUsername($username) {
         $this->username = $username;
     }
+
+
+    public function getUserdisplayedname() {
+        return $this->userdisplayedname;
+    }
+
+    public function setUserdisplayedname($userdisplayedname) {
+        $this->userdisplayedname = $userdisplayedname;
+    }
+
 
     /**
      * @inheritDoc
