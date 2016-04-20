@@ -61,6 +61,22 @@ $app->get('/article/{id}', function ($id) use ($app) {
 })->bind('article');
 
 
+$app->get('/search/', function () use ($app) {
+    $categories = $app['dao.categorie']->findAll();
+    return $app['twig']->render('search.html.twig', array('categories' => $categories));
+})->bind('search');
+
+$app->post('/results/', function (Request $request) use ($app) {
+    $catId = $request->get('categorie');
+    $keyword = $request->get('keyword');
+    if($catId == -1){
+        $articles = $app['dao.article']->findKeyword($keyword);
+    }else{
+        $articles = $app['dao.article']->findKeywordByCategorie($keyword,$catId);
+    }
+    return $app['twig']->render('categorie.html.twig', array('articles' => $articles));
+})->bind('results');
+
 /*
 $app->error(function (\Exception $e, $code) {
     return new Response('We are sorry, but something went terribly wrong.'.$code);
