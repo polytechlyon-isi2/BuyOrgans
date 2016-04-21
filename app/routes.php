@@ -28,7 +28,7 @@ $app->get('/login', function(Request $request) use ($app) {
 
 // Signup form
 $app->get('/signup', function(Request $request) use ($app) {
-     $user = new User();
+    $user = new User();
     $userForm = $app['form.factory']->create(new UserType(), $user);
     $userForm->handleRequest($request);
     if ($userForm->isSubmitted() && $userForm->isValid()) {
@@ -49,12 +49,32 @@ $app->get('/signup', function(Request $request) use ($app) {
         'title' => 'New user',
         'userForm' => $userForm->createView()));
 })->bind('signup')->method('POST|GET');
-//Article details and coments
-$app->get('/article/{id}', function ($id) use ($app) {
-    $article = $app['dao.article']->find($id);
-    return $app['twig']->render('article.html.twig', array('article' => $article));
-})->bind('article');
 
+//view and modify profile
+$app->get('/profile', function(Request $request) use ($app) {
+    $user = new User();
+    $userForm = $app['form.factory']->create(new UserType(), $user);
+    $userForm->handleRequest($request);
+    if ($userForm->isSubmitted() && $userForm->isValid()) {
+        // generate a random salt value
+        $salt = substr(md5(time()), 0, 23);
+        $user->setSalt($salt);
+        $plainPassword = $user->getPassword();
+        // find the default encoder
+        $encoder = $app['security.encoder.digest'];
+        // compute the encoded password
+        $password = $encoder->encodePassword($plainPassword, $user->getSalt());
+        $user->setPassword($password); 
+        $user->setRole("ROLE_USER");
+        $app['dao.user']->save($user);
+        $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
+    }
+    return $app['twig']->render('profile.html.twig', array(
+        'title' => 'New user',
+        'userForm' => $userForm->createView()));
+})->bind('profile')->method('POST|GET');
+
+//Article details and coments
 $app->get('/article/{id}', function ($id) use ($app) {
     $article = $app['dao.article']->find($id);
     return $app['twig']->render('article.html.twig', array('article' => $article));
