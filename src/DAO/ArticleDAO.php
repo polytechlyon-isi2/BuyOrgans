@@ -24,6 +24,31 @@ class ArticleDAO extends DAO
         return $articles;
     }
 
+    public function findKeyword($keyword) {
+        $sql = "select * from t_article where art_title LIKE ? order by art_id desc";
+        $result = $this->getDb()->fetchAll($sql, array("%".$keyword."%"));
+
+        // Convert query result to an array of domain objects
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
+    }
+
+    public function findKeywordByCategorie($keyword, $catId) {
+        $sql = "select * from t_article where art_categorie=? AND art_title LIKE ? order by art_id desc";
+        $result = $this->getDb()->fetchAll($sql, array($catId, "%".$keyword."%"));
+        // Convert query result to an array of domain objects
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
+    }
+
     /**
      * Creates an Article object based on a DB row.
      *

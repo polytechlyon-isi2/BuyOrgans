@@ -1,9 +1,21 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}{{ categorie.title }}{% endblock %}
+{% block title %}
+{% if categorie is defined %}
+    {{ categorie.title }}
+{% else %}
+    resultats
+{% endif %}
+{% endblock %}
 
 {% block content %}
-    <h1 class="categories-title">{{ categorie.title }}</h1>
+    <h1 class="categories-title">
+        {% if categorie is defined %}
+            {{ categorie.title }}
+        {% else %}
+            resultats
+        {% endif %}
+    </h1>
     <br/>
     <div class ='row article'>
     {% for article in articles %}

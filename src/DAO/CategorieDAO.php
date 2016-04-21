@@ -40,6 +40,8 @@ class CategorieDAO extends DAO
 
     }
 
+    
+
 
     /**
      * Creates an Categorie object based on a DB row.
