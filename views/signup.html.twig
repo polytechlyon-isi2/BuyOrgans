@@ -16,88 +16,92 @@
 {% endif %}
 
 <div class="well">
-{{ form_start(userForm, { 'attr': {'class': 'form-horizontal', 'data-toggle' : 'validator'} }) }}
-    <div class="form-group">
-        {{ form_label(userForm.username, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label'
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_errors(userForm.username) }}
-            {{ form_widget(userForm.username, { 'attr':  {
-                'class': 'form-control',
-                'pattern' : '.+\@.+\..+'
+{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+    {{ form_start(userForm, { 'attr': {'class': 'form-horizontal', 'data-toggle' : 'validator'} }) }}
+        <div class="form-group">
+            {{ form_label(userForm.username, null, { 'label_attr':  {
+                'class': 'col-sm-5 control-label'
             }}) }}
+            <div class="col-sm-4">
+                {{ form_errors(userForm.username) }}
+                {{ form_widget(userForm.username, { 'attr':  {
+                    'class': 'form-control',
+                    'pattern' : '.+\@.+\..+'
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.userdisplayedname, NULL, { 'label_attr':  {
-            'class': 'col-sm-5 control-label'
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_errors(userForm.userdisplayedname) }}
-            {{ form_widget(userForm.userdisplayedname, { 'attr':  {
-                'class': 'form-control'
+        <div class="form-group">
+            {{ form_label(userForm.userdisplayedname, NULL, { 'label_attr':  {
+                'class': 'col-sm-5 control-label'
             }}) }}
+            <div class="col-sm-4">
+                {{ form_errors(userForm.userdisplayedname) }}
+                {{ form_widget(userForm.userdisplayedname, { 'attr':  {
+                    'class': 'form-control'
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.password.first, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label'
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_widget(userForm.password.first, { 'attr':  {
-                'class': 'form-control',
+        <div class="form-group">
+            {{ form_label(userForm.password.first, null, { 'label_attr':  {
+                'class': 'col-sm-5 control-label'
             }}) }}
+            <div class="col-sm-4">
+                {{ form_widget(userForm.password.first, { 'attr':  {
+                    'class': 'form-control',
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.password.second, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label',
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_widget(userForm.password.second, { 'attr':  {
-                'class': 'form-control',
-                'data-match' : '#user_password_first'
+        <div class="form-group">
+            {{ form_label(userForm.password.second, null, { 'label_attr':  {
+                'class': 'col-sm-5 control-label',
             }}) }}
+            <div class="col-sm-4">
+                {{ form_widget(userForm.password.second, { 'attr':  {
+                    'class': 'form-control',
+                    'data-match' : '#user_password_first'
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.city, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label',
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_widget(userForm.city, { 'attr':  {
-                'class': 'form-control',
+        <div class="form-group">
+            {{ form_label(userForm.city, null, { 'label_attr':  {
+                'class': 'col-sm-5 control-label',
             }}) }}
+            <div class="col-sm-4">
+                {{ form_widget(userForm.city, { 'attr':  {
+                    'class': 'form-control',
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.address, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label',
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_widget(userForm.address, { 'attr':  {
-                'class': 'form-control',
+        <div class="form-group">
+            {{ form_label(userForm.address, null, { 'label_attr':  {
+                'class': 'col-sm-5 control-label',
             }}) }}
+            <div class="col-sm-4">
+                {{ form_widget(userForm.address, { 'attr':  {
+                    'class': 'form-control',
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(userForm.postalcode, null, { 'label_attr':  {
-            'class': 'col-sm-5 control-label',
-        }}) }}
-        <div class="col-sm-4">
-            {{ form_widget(userForm.postalcode, { 'attr':  {
-                'class': 'form-control',
-                'pattern' : '[0-9]+'
+        <div class="form-group">
+            {{ form_label(userForm.postalcode, null, { 'label_attr':  {
+                'class': 'col-sm-5 control-label',
             }}) }}
+            <div class="col-sm-4">
+                {{ form_widget(userForm.postalcode, { 'attr':  {
+                    'class': 'form-control',
+                    'pattern' : '[0-9]+'
+                }}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-3">
-            <input type="submit" class="btn btn-primary" value="Save" />
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-3">
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </div>
         </div>
-    </div>
-{{ form_end(userForm) }}
-<script src="{{ app.request.basepath }}/lib/js/validator.js"></script>
+    {{ form_end(userForm) }}
+    <script src="{{ app.request.basepath }}/lib/js/validator.js"></script>
+{% else %}
+    <h2> Vous êtes déjà authentifié ! </h2>
+{% endif %}
 </div>
 {% endblock %}

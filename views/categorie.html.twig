@@ -18,6 +18,7 @@
     </h1>
     <br/>
     <div class ='row article'>
+    {% if articles is defined %}  
     {% for article in articles %}
         <div class='col-md-3 col-sm-6 col-xs-12'>
             <a href="{{ path('article', { 'id': article.id }) }}">
@@ -41,5 +42,11 @@
             </a>
         </div>
     {% endfor %}
+    {% else %}
+     <div class ='well'>
+        <h1> Désolé,<br> </h1>
+        <h2> mais aucun article ne semble correspondre à ce que vous recherchez ;( </h2>
+    </div>
+    {% endif %}
     </div>
 {% endblock %}

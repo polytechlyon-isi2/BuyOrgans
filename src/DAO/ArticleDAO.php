@@ -28,25 +28,33 @@ class ArticleDAO extends DAO
         $sql = "select * from t_article where art_title LIKE ? order by art_id desc";
         $result = $this->getDb()->fetchAll($sql, array("%".$keyword."%"));
 
-        // Convert query result to an array of domain objects
-        $articles = array();
-        foreach ($result as $row) {
-            $articleId = $row['art_id'];
-            $articles[$articleId] = $this->buildDomainObject($row);
+        if($result){
+            // Convert query result to an array of domain objects
+            $articles = array();
+            foreach ($result as $row) {
+                $articleId = $row['art_id'];
+                $articles[$articleId] = $this->buildDomainObject($row);
+            }
+            return $articles;
         }
-        return $articles;
+        else
+            throw new \Exception("No article matching Keyword " . $keyword);
     }
 
     public function findKeywordByCategorie($keyword, $catId) {
         $sql = "select * from t_article where art_categorie=? AND art_title LIKE ? order by art_id desc";
         $result = $this->getDb()->fetchAll($sql, array($catId, "%".$keyword."%"));
-        // Convert query result to an array of domain objects
-        $articles = array();
-        foreach ($result as $row) {
-            $articleId = $row['art_id'];
-            $articles[$articleId] = $this->buildDomainObject($row);
+        if ($result){
+            // Convert query result to an array of domain objects
+            $articles = array();
+            foreach ($result as $row) {
+                $articleId = $row['art_id'];
+                $articles[$articleId] = $this->buildDomainObject($row);
+            }
+            return $articles;
         }
-        return $articles;
+        else
+            throw new \Exception("No article matching Keyword " . $keyword . " in category ".$catId);
     }
 
     /**

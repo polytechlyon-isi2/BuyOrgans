@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+    Profile de {{ app.user.userDisplayedName }}
+{% else %}
+    Erreur
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<p>
+	{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+		<div class="well">
+			<div class ='row'>
+				<div>
+					<h2>
+						Utilisateur
+					</h2>
+				</div>
+				<div class='col-md-6 col-sm-6 col-xs-12'>
+				    Username : {{ app.user.userDisplayedName}}
+				</div>
+				<div class='col-md-6 col-sm-6 col-xs-12'>
+					E-mail : {{ app.user.username}}
+				</div>
+			</div>
+			<br>
+			<div class ='row'>
+				<div>
+					<h2>
+						Adresse
+					</h2>
+				</div>
+				<div class='col-md-6 col-sm-6 col-xs-12'>
+				    Ville : {{ app.user.city}}
+				</div>
+				<div class='col-md-6 col-sm-6 col-xs-12'>
+					Code postal : {{ app.user.postalcode}}
+				</div>
+			</div>
+			<br>
+			<div class ='row'>
+				<div class='col-md-6 col-sm-6 col-xs-12'>
+					Adresse : {{ app.user.address}}
+				</div>
+			</div>
+			<br>
+			<a href={{path('signup')}} class="btn btn-primary"><span class="glyphicon glyphicon-pencil"> Modifier</a>
+		</div>
+	{% else %}
+		<div class="well">
+			<h1>Désolé</h1> <br>
+			<h2>Vous devez être connecté pour voir ou modifier votre profile.</h2>
+			<h3><a href={{path('login')}}>Connectez-vous</a> ou <a href={{path('signup')}}> Enregistrez-vous</a> ! </h3>
+		</div>
+	{% endif %}
+</p>
+{% endblock %}

@@ -1,6 +1,6 @@
         /* t_categorie */
 insert into t_categorie values
-(1, 'Orgue à tuyeaux','orgueatuyeaux.jpg');
+(1, 'Orgue à tuyaux','orgueatuyeaux.jpg');
 
 insert into t_categorie values
 (2, 'Orgue Numérique','orguenumerique.png');

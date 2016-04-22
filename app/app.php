@@ -44,15 +44,32 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 $app['dao.article'] = $app->share(function ($app) {
     return new BuyOrgans\DAO\ArticleDAO($app['db']);
 });
+
 $app['dao.user'] = $app->share(function ($app) {
     return new BuyOrgans\DAO\UserDAO($app['db']);
 });
+
 $app['dao.comment'] = $app->share(function ($app) {
     $commentDAO = new BuyOrgans\DAO\CommentDAO($app['db']);
     $commentDAO->setArticleDAO($app['dao.article']);
     $commentDAO->setUserDAO($app['dao.user']);
     return $commentDAO;
 });
+
 $app['dao.categorie'] = $app->share(function ($app) {
     return new BuyOrgans\DAO\CategorieDAO($app['db']);
 });
+
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+    'monolog.logfile' => __DIR__.'/../var/logs/BuyOrgans.log',
+    'monolog.name' => 'BuyOrgans',
+    'monolog.level' => $app['monolog.level']
+));
+
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
+if (isset($app['debug']) && $app['debug']) {
+    $app->register(new Silex\Provider\HttpFragmentServiceProvider());
+    $app->register(new Silex\Provider\WebProfilerServiceProvider(), array(
+        'profiler.cache_dir' => __DIR__.'/../var/cache/profiler'
+    ));
+}
