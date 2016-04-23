@@ -93,8 +93,20 @@ $app->post('/article/{id}/', function ($id, Request $request) use ($app){
     }
 })->bind('addcart');
 
-$app->get('/cart', function () use ($app) {
-   
+$app->match('/cart/', function (Request $request) use ($app) {
+        if(($remove_art_id  = $request->get('artid', 'false')) != 'false'){
+            if($app['session']->has('cart')){
+                $cart = $app['session']->get('cart');
+                foreach($cart as $key => $articleId){
+                    if($remove_art_id == $articleId){
+                        unset($cart[$key]);
+                        $app['session']->set('cart', $cart);
+                        break;
+                    }
+                }
+            }
+        }
+
         if($app['session']->has('cart')){
             $articles = array();
             $total = 0;
@@ -144,7 +156,7 @@ $app->get('/checkout', function () use ($app) {
     return $app['twig']->render('checkout.html.twig');
 })->bind('checkout');
 
-
+/*
 $app->error(function (\Exception $e, $code) use ($app){
     return $app['twig']->render('error.html.twig');
 });
@@ -152,3 +164,4 @@ $app->error(function (\Exception $e, $code) use ($app){
 $app->get('/error', function () use ($app) {
     return $app['twig']->render('error.html.twig');
 })->bind('error');
+*/

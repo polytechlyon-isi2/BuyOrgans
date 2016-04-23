@@ -12,15 +12,22 @@
 <p>
     <div class="well">
         {% if articles is defined%}
-            <table class="table table-hover table-condensed table-bordered col-md-6">
+            <table class="table table-hover table-condensed table-bordered">
                 <tr>
                     <th>nom</th>
                     <th>prix (€)</th> 
+                    <th class="col-md-1">Enlever</th>
                 </tr>
                 {% for article in articles %}
                       <tr>
                         <td>{{ article.title }}</td>
-                        <td>{{ article.price }} €</td> 
+                        <td>{{ article.price }} €</td>
+                        <td><form method=post action={{path('cart')}}>
+                            <input type=hidden name="artid" value={{article.id}}>
+                            <button type="submit" class="btn btn-default btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </form></td>
                       </tr>
                 {%endfor%}
             </table>
