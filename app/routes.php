@@ -49,7 +49,7 @@ $app->get('/signup', function(Request $request) use ($app) {
         $user->setPassword($password); 
         $user->setRole("ROLE_USER");
         $app['dao.user']->save($user);
-        $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
+        $app['session']->getFlashBag()->add('success', "Le compte a été créé.");
     }
     return $app['twig']->render('signup.html.twig', array(
         'title' => 'New user',
@@ -63,10 +63,61 @@ $app->get('/profile', function(Request $request) use ($app) {
 
 //Article details and coments
 $app->get('/article/{id}', function ($id) use ($app) {
-    $article = $app['dao.article']->find($id);
-    return $app['twig']->render('article.html.twig', array('article' => $article));
+     try{
+        $article = $app['dao.article']->find($id);
+        return $app['twig']->render('article.html.twig', array('article' => $article));
+    }catch(Exception $e){
+        return $app['twig']->render('article.html.twig');
+    }
+    
 })->bind('article');
 
+// add Article to cart
+$app->post('/article/{id}/', function ($id, Request $request) use ($app){
+    try{
+        $article = $app['dao.article']->find($id);
+        if($request->get("addcart")){
+            if($app['session']->has("cart")){
+                $cart = $app['session']->get("cart");
+                array_push($cart, $id);
+                $app['session']->set("cart", $cart);
+            }else{
+                $cart = array($id);
+                $app['session']->set("cart", $cart);
+            }
+             $app['session']->getFlashBag()->add('success', "L'article a été ajouté au panier.");
+        }
+        return $app['twig']->render('article.html.twig', array('article' => $article));
+    }catch(Exception $e){
+        return $app['twig']->render('article.html.twig');
+    }
+})->bind('addcart');
+
+$app->get('/cart', function () use ($app) {
+   
+        if($app['session']->has('cart')){
+            $articles = array();
+            $total = 0;
+            $cart = $app['session']->get('cart');
+            foreach($cart as $key => $articleId){
+                try{
+                    $article = $app['dao.article']->find($articleId);
+                    array_push($articles, $article);
+                    $total += $article->getPrice();
+                }catch(Exception $e){
+                    unset($cart[$key]);
+                    $app['session']->set('cart', $cart);
+                }
+            }
+            if(empty($articles))
+                return $app['twig']->render('cart.html.twig');
+            else
+                return $app['twig']->render('cart.html.twig', array('articles' => $articles, 'total' => $total));
+
+        }
+        else
+            return $app['twig']->render('cart.html.twig');
+})->bind('cart');
 
 $app->get('/search/', function () use ($app) {
     $categories = $app['dao.categorie']->findAll();
@@ -88,12 +139,16 @@ $app->post('/results/', function (Request $request) use ($app) {
     }
 })->bind('results');
 
-/*
-$app->error(function (\Exception $e, $code) {
-    return new Response('We are sorry, but something went terribly wrong.'.$code);
+
+$app->get('/checkout', function () use ($app) {
+    return $app['twig']->render('checkout.html.twig');
+})->bind('checkout');
+
+
+$app->error(function (\Exception $e, $code) use ($app){
+    return $app['twig']->render('error.html.twig');
 });
 
 $app->get('/error', function () use ($app) {
     return $app['twig']->render('error.html.twig');
 })->bind('error');
-*/

@@ -1,14 +1,9 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}User Signup{% endblock %}
+{% block title %}Inscription d'un Utilisateur {% endblock %}
 
 {% block content %}
 <h2 class="text-center">{{ block('title') }}</h2>
-{% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-    {{ flashMessage }}
-</div>
-{% endfor %}
 {% if form_errors(userForm.password.first) %}
 <div class="alert alert-danger">
     {{ form_errors(userForm.password.first) }}
@@ -16,7 +11,7 @@
 {% endif %}
 
 <div class="well">
-{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+{% if not (app.user and is_granted('IS_AUTHENTICATED_FULLY')) %}
     {{ form_start(userForm, { 'attr': {'class': 'form-horizontal', 'data-toggle' : 'validator'} }) }}
         <div class="form-group">
             {{ form_label(userForm.username, null, { 'label_attr':  {
@@ -99,7 +94,6 @@
             </div>
         </div>
     {{ form_end(userForm) }}
-    <script src="{{ app.request.basepath }}/lib/js/validator.js"></script>
 {% else %}
     <h2> Vous êtes déjà authentifié ! </h2>
 {% endif %}

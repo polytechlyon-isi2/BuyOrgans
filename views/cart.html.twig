@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+{% if article is defined%}
+    {{ article.title }}
+{% else %}
+    Erreur :(
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<p>
+    <div class="well">
+        {% if articles is defined%}
+            <table class="table table-hover table-condensed table-bordered col-md-6">
+                <tr>
+                    <th>nom</th>
+                    <th>prix (€)</th> 
+                </tr>
+                {% for article in articles %}
+                      <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.price }} €</td> 
+                      </tr>
+                {%endfor%}
+            </table>
+            <strong> Total : </strong> {{ total }} €.
+            <p class="text-right">
+                <a href={{path("checkout")}} class="btn btn-primary">Acheter</a>
+            </p>
+        {% else %}
+            <h2> Votre panier est vide </h2>
+            <h3><a href={{path("home")}}>Cliquez-ici</a> pour retourner à l'accueil.</h3>
+        {% endif %}
+    </div>
+</p>
+{% endblock %}

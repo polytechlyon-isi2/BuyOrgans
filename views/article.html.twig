@@ -1,28 +1,44 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}
+{% if article is defined%}
+    {{ article.title }}
+{% else %}
+    Erreur :(
+{% endif %}
+{% endblock %}
 
 {% block content %}
 <p>
     <div class="well">
-        <div class="row">
-            <div class="col-md-6 article-img">
-                <img src="/img/{{ article.getImage() }}" class="img-rounded img-responsive">
-            </div>
-             <div class="col-md-6">
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.description }}</p>
+        {% if article is defined%}
+            <div class="row">
+                <div class="col-md-6 article-img">
+                    <img src="/img/{{ article.getImage() }}" class="img-rounded img-responsive">
+                </div>
+                 <div class="col-md-6">
+                    <h2>{{ article.title }}</h2>
+                    <p>{{ article.description }}</p>
 
-                <h3>Comments</h3>
-                
-                <h3>Add a comment</h3>
-                {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-                    Soon!
-                {% else %}
-                    <a href="{{ path('login') }} ">Log in</a> to add comments.
-                {% endif %}
+                    <form method="post" action="{{path('addcart', {'id' : article.id})}}">
+                        <input type=hidden name="addcart" value=1>
+                        <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> ajouter au panier</button>
+                    </form>
+                    <h3>Comments</h3>
+                    
+                    <h3>Add a comment</h3>
+                    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                        Soon!
+                    {% else %}
+                        <a href="{{ path('login') }} ">Log in</a> to add comments.
+                    {% endif %}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <h1> Désolé, </h1><br>
+            <h3> Mais cet article n'existe pas.</h3>
+            <h4><a href={{path("home")}}>Cliquez-ici</a> pour retourner à l'accueil </h4>
+        {% endif %}
     </div>
 </p>
 {% endblock %}

@@ -9,6 +9,8 @@
     <title>BuyOrgans - {% block title %}{% endblock %}</title>
 </head>
 <body>
+    <div id="notifications">
+    </div>
     <div class="container">
         <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
@@ -24,9 +26,9 @@
                     <ul class="nav navbar-nav">
                            <li><a href="{{ path('home') }}">Articles</a></li>
                            <li><a href="{{ path('search') }}">Recherche</a></li>
-                           <li><a href="contact">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                         <li><a href="{{ path('cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a></li>
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -61,5 +63,19 @@
     <script src="{{ app.request.basepath }}/lib/Bootstrap/js/bootstrap.min.js"></script>
     <!-- JavaScript Form validator plugin -->
     <script src="{{ app.request.basepath }}/lib/js/validator.js"></script>
+    <!-- JavaScript Notification plugin -->
+    <script src="{{ app.request.basepath }}/lib/js/notify.js"></script>
+        <script type="text/javascript">
+        
+            $( document ).ready(function() {
+            {% for flash_message in app.session.flashBag.get('success') %}
+                Notify("<span class='glyphicon glyphicon-check'></span> {{ flash_message}}", null,null, "success");
+            {% endfor %}
+            {% for flash_message in app.session.flashBag.get('error') %}
+                Notify("{{ flash_message}}", null, null, 'danger');
+            {% endfor %}
+            });
+        
+    </script>
 </body>
 </html>
