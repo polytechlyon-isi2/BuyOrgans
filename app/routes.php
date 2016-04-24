@@ -60,7 +60,7 @@ $app->get('/signup', function(Request $request) use ($app) {
 
 // edit profile form
 $app->match('/profile/edit/', function(Request $request) use ($app) {
-    if($app['security']->isGranted('IS_AUTHENTICATED_FULLY')){
+    if($app['security']->isGranted('IS_AUTHENTICATED_FULLY') || $app['session.test']){
         $user = $app['user'];
         $userForm = $app['form.factory']->create(new UserType(), $user);
         $userForm->handleRequest($request);
