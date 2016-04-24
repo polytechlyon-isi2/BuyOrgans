@@ -33,20 +33,20 @@
 					</h2>
 				</div>
 				<div class='col-md-6 col-sm-6 col-xs-12'>
-				    Ville : {{ app.user.city}}
+				    Ville : {{ app.user.city }}
 				</div>
 				<div class='col-md-6 col-sm-6 col-xs-12'>
-					Code postal : {{ app.user.postalcode}}
+					Code postal : {{ app.user.postalcode }}
 				</div>
 			</div>
 			<br>
 			<div class ='row'>
 				<div class='col-md-6 col-sm-6 col-xs-12'>
-					Adresse : {{ app.user.address}}
+					Adresse : {{ app.user.address }}
 				</div>
 			</div>
 			<br>
-			<a href={{path('signup')}} class="btn btn-primary"><span class="glyphicon glyphicon-pencil"> Modifier</a>
+			<a href={{path('edit')}} class="btn btn-primary"><span class="glyphicon glyphicon-pencil"> Modifier</a>
 		</div>
 	{% else %}
 		<div class="well">

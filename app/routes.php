@@ -3,6 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use BuyOrgans\Domain\User;
 use BuyOrgans\Form\Type\UserType;
+use BuyOrgans\Form\Type\NewUserType;
 
 // Home page
 $app->get('/', function () use ($app) {
@@ -35,7 +36,7 @@ $app->get('/login', function(Request $request) use ($app) {
 // Signup form
 $app->get('/signup', function(Request $request) use ($app) {
     $user = new User();
-    $userForm = $app['form.factory']->create(new UserType(), $user);
+    $userForm = $app['form.factory']->create(new NewUserType(), $user);
     $userForm->handleRequest($request);
     if ($userForm->isSubmitted() && $userForm->isValid()) {
         // generate a random salt value
@@ -50,11 +51,33 @@ $app->get('/signup', function(Request $request) use ($app) {
         $user->setRole("ROLE_USER");
         $app['dao.user']->save($user);
         $app['session']->getFlashBag()->add('success', "Le compte a été créé.");
+        return $app->redirect('/');
     }
     return $app['twig']->render('signup.html.twig', array(
-        'title' => 'New user',
+        'title' => "Engistrement d'un nouvel utilisateur",
         'userForm' => $userForm->createView()));
 })->bind('signup')->method('POST|GET');
+
+// edit profile form
+$app->match('/profile/edit/', function(Request $request) use ($app) {
+    if($app['security']->isGranted('IS_AUTHENTICATED_FULLY')){
+        $user = $app['user'];
+        $userForm = $app['form.factory']->create(new UserType(), $user);
+        $userForm->handleRequest($request);
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $app['dao.user']->save($user);
+            $app['session']->getFlashBag()->add('success', "Modification du profile réussi.");
+            return $app->redirect('/');
+        }
+        return $app['twig']->render('edit.html.twig', array(
+            'title' => "modification du profile",
+            'userForm' => $userForm->createView()));
+    }else{
+        $app['session']->getFlashBag()->add('error', "Vous devez être connecté pour modifier votre profile.");
+        return $app->redirect('/login');
+    }
+
+})->bind('edit');
 
 //view and modify profile
 $app->get('/profile', function(Request $request) use ($app) {

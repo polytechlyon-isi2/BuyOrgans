@@ -1,6 +1,6 @@
 <?php
 
-namespace MicroCMS\Tests;
+namespace BuyOrgans\Tests;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -58,6 +58,10 @@ class AppTest extends WebTestCase
             array('/search/'),
             array('/categorie/1'),
             array('/signup'),
+            array('/profile'),
+            array('/profile/edit'),
+            array('/cart/'),
+            array('/checkout'),
             ); 
     }
 }

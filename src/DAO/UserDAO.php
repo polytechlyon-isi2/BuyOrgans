@@ -104,6 +104,9 @@ class UserDAO extends DAO implements UserProviderInterface
         $user->setPassword($row['usr_password']);
         $user->setSalt($row['usr_salt']);
         $user->setRole($row['usr_role']);
+        $user->setAddress($row['usr_address']);
+        $user->setCity($row['usr_city']);
+        $user->setPostalcode($row['usr_postalcode']);
         return $user;
     }
 }

@@ -69,10 +69,10 @@
         
             $( document ).ready(function() {
             {% for flash_message in app.session.flashBag.get('success') %}
-                Notify("<span class='glyphicon glyphicon-check'></span> {{ flash_message}}", null,null, "success");
+                Notify("<div class='row'><div class='col-md-1 col-sm-1 col-xs-1'><span class='glyphicon glyphicon-check'></span></div> <div class='col-md-8 col-sm-8 col-xs-8'>{{ flash_message}}</div></div>", null,null, "success");
             {% endfor %}
             {% for flash_message in app.session.flashBag.get('error') %}
-                Notify("{{ flash_message}}", null, null, 'danger');
+                Notify("<div class='row'><div class='col-md-1 col-sm-1 col-xs-1'><span class='glyphicon glyphicon-remove'></span></div> <div class='col-md-9 col-sm-9 col-xs-9'>{{ flash_message}}</div></div>", null, null, 'danger');
             {% endfor %}
             });
         

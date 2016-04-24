@@ -100,7 +100,7 @@ class User implements UserInterface
     }
 
     public function getPostalcode() {
-        return $this->address;
+        return $this->postalcode;
     }
 
     public function setPostalcode($postalcode) {
