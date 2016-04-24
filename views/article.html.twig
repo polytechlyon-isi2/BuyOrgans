@@ -19,19 +19,12 @@
                  <div class="col-md-6">
                     <h2>{{ article.title }}</h2>
                     <p>{{ article.description }}</p>
+                    <p><span class="badge price">{{ article.price }} €</span></p>
 
                     <form method="post" action="{{path('addcart', {'id' : article.id})}}">
                         <input type=hidden name="addcart" value=1>
                         <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> ajouter au panier</button>
                     </form>
-                    <h3>Comments</h3>
-                    
-                    <h3>Add a comment</h3>
-                    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-                        Soon!
-                    {% else %}
-                        <a href="{{ path('login') }} ">Log in</a> to add comments.
-                    {% endif %}
                 </div>
             </div>
         {% else %}
