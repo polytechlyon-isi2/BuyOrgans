@@ -13,40 +13,52 @@
 	{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
 		<div class="well">
 			<div class ='row'>
-				<div>
-					<h2>
-						Utilisateur
-					</h2>
-				</div>
-				<div class='col-md-6 col-sm-6 col-xs-12'>
-				    Username : {{ app.user.userDisplayedName}}
-				</div>
-				<div class='col-md-6 col-sm-6 col-xs-12'>
-					E-mail : {{ app.user.username}}
-				</div>
-			</div>
-			<br>
-			<div class ='row'>
-				<div>
-					<h2>
-						Adresse
-					</h2>
-				</div>
-				<div class='col-md-6 col-sm-6 col-xs-12'>
-				    Ville : {{ app.user.city}}
-				</div>
-				<div class='col-md-6 col-sm-6 col-xs-12'>
-					Code postal : {{ app.user.postalcode}}
-				</div>
-			</div>
-			<br>
-			<div class ='row'>
-				<div class='col-md-6 col-sm-6 col-xs-12'>
-					Adresse : {{ app.user.address}}
-				</div>
-			</div>
-			<br>
-			<a href={{path('signup')}} class="btn btn-primary"><span class="glyphicon glyphicon-pencil"> Modifier</a>
+                <form class="form-signin form-horizontal" role="form" action="" method="post">
+                    <div>
+                        <h2>
+                            Utilisateur
+                        </h2>
+                    </div>
+                    <div class='col-md-4 col-sm-4 col-xs-10'>
+                        <label for="label_username">Username : </label>
+                        <input type="text" name="_username" id="label_username" value="{{ app.user.userDisplayedName}}" class="form-control" placeholder="New username">
+                    </div>
+                    <div class='col-md-2 col-sm-2 col-xs-2'></div>
+                    <div class='col-md-4 col-sm-4 col-xs-10'>
+                        <label for="label_mail">E-mail : </label>
+                        <input type="text" name="_mail" id="label_mail" value="{{ app.user.username}}" class="form-control" placeholder="New e-mail">
+                    </div>
+                    <div class='col-md-2 col-sm-2 col-xs-2'></div>
+                </div>
+                <br>
+                <div class ='row'>
+                    <div>
+                        <h2>
+                            Adresse
+                        </h2>
+                    </div>
+                    <div class='col-md-4 col-sm-4 col-xs-10'>
+                        <label for="label_city">Ville : </label>
+                        <input type="text" name="_city" id="label_city" value="{{ app.user.city}}" class="form-control" placeholder="New city">
+                    </div>
+                    <div class='col-md-2 col-sm-2 col-xs-2'></div>
+                    <div class='col-md-4 col-sm-4 col-xs-10'>
+                        <label for="label_postalcode">Code postal : </label>
+                        <input type="text" name="_postalcode" id="label_postalcode" value="{{ app.user.postalcode}}" class="form-control" placeholder="New postal code">
+                    </div>
+                    <div class='col-md-2 col-sm-2 col-xs-2'></div>
+                </div>
+                <br>
+                <div class ='row'>
+                    <div class='col-md-4 col-sm-4 col-xs-10'>
+                        <label for="label_address">Adresse : </label>
+                        <input type="text" name="_address" id="label_address" value="{{ app.user.address}}" class="form-control" placeholder="New address">
+                    </div>
+                    <div class='col-md-2 col-sm-2 col-xs-2'></div>
+                </div>
+                <br>
+                <a href={{path('signup')}} class="btn btn-primary"><span class="glyphicon glyphicon-pencil"> Modifier</a>
+            </form>
 		</div>
 	{% else %}
 		<div class="well">
